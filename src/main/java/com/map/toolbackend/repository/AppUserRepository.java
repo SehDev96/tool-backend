@@ -11,4 +11,6 @@ import java.util.UUID;
 public interface AppUserRepository extends JpaRepository<AppUser,UUID> {
 
     Optional<AppUser> findUserByUsername(String username);
+
+    void deleteByUsername(String username);
 }

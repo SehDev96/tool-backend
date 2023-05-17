@@ -7,4 +7,6 @@ public interface AppUserService {
     AppUser insertUser(AppUser appUser);
 
     AppUser getUserByUsername(String username);
+
+    void removeUser(String username);
 }

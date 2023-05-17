@@ -32,4 +32,10 @@ public class AppUser {
 
     public AppUser() {
     }
+
+    public AppUser(String username, String password, String role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
 }
