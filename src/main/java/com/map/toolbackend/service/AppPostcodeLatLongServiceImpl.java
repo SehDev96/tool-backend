@@ -29,7 +29,7 @@ public class AppPostcodeLatLongServiceImpl implements AppPostcodeLatLongService 
     }
 
     @Override
-    public AppPostcodeLatLong insertPostcodeWithLatLong(AppPostcodeLatLong appPostcodeLatLong) {
+    public AppPostcodeLatLong insertOrUpdatePostcodeLatLong(AppPostcodeLatLong appPostcodeLatLong) {
         return appPostcodeLatLongRepository.save(appPostcodeLatLong);
     }
 

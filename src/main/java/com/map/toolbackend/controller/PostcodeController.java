@@ -4,7 +4,6 @@ import com.map.toolbackend.entity.AppPostcodeLatLong;
 import com.map.toolbackend.model.ErrorResponseModel;
 import com.map.toolbackend.model.ResponseModel;
 import com.map.toolbackend.service.AppPostcodeLatLongService;
-import com.map.toolbackend.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/app/postcode")
 @RestController
@@ -40,7 +40,7 @@ public class PostcodeController {
             ),HttpStatus.CONFLICT);
         }
 
-        appPostcodeLatLong = appPostcodeLatLongService.insertPostcodeWithLatLong(appPostcodeLatLong);
+        appPostcodeLatLong = appPostcodeLatLongService.insertOrUpdatePostcodeLatLong(appPostcodeLatLong);
 
         return new ResponseEntity<>(new ResponseModel(
                 HttpStatus.OK.value(),
@@ -90,5 +90,32 @@ public class PostcodeController {
                 "Successfully uploaded postcodes",
                 insertedPostcodeSize
         ), HttpStatus.OK);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updatePostcodeData(
+            @RequestParam(value = "postcode") String postcode,
+            @RequestBody Map<String,Double> locationMap
+    ){
+        AppPostcodeLatLong appPostcodeLatLong = appPostcodeLatLongService.getPostcodeWithLatLongBytPostcode(postcode);
+
+        if(appPostcodeLatLong == null){
+            return new ResponseEntity<>(new ErrorResponseModel(
+                    HttpStatus.NOT_FOUND.value(),
+                    "Data not found",
+                    "Postcode: "+postcode+" not found"
+            ),HttpStatus.NOT_FOUND);
+        }
+
+        if(locationMap.containsKey("latitude")) appPostcodeLatLong.setLatitude(locationMap.get("latitude"));
+        if(locationMap.containsKey("longitude")) appPostcodeLatLong.setLongitude(locationMap.get("longitude"));
+
+        appPostcodeLatLong = appPostcodeLatLongService.insertOrUpdatePostcodeLatLong(appPostcodeLatLong);
+
+        return new ResponseEntity<>(new ResponseModel(
+                HttpStatus.OK.value(),
+                "Successfully updated postcode data",
+                appPostcodeLatLong
+        ),HttpStatus.OK);
     }
 }
