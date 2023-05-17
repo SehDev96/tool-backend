@@ -16,10 +16,10 @@ public class AppPostcodeLatLong {
     private String postcode;
 
     @Column(name = "latitude")
-    private double latitude;
+    private Double latitude;
 
     @Column(name = "longitude")
-    private double longitude;
+    private Double longitude;
 
     public AppPostcodeLatLong() {
     }

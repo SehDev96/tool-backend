@@ -3,7 +3,7 @@ package com.map.toolbackend.filter;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.map.toolbackend.JwtUtils;
+import com.map.toolbackend.utils.JwtUtils;
 import com.map.toolbackend.model.ErrorResponseModel;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -1,4 +1,4 @@
-package com.map.toolbackend;
+package com.map.toolbackend.utils;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

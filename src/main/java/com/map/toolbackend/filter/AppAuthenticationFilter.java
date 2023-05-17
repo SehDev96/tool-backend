@@ -1,7 +1,7 @@
 package com.map.toolbackend.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.map.toolbackend.JwtUtils;
+import com.map.toolbackend.utils.JwtUtils;
 import com.map.toolbackend.model.ErrorResponseModel;
 import com.map.toolbackend.model.LoginRequest;
 import com.map.toolbackend.model.ResponseModel;
