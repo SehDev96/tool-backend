@@ -42,57 +42,7 @@ public class AppPostcodeLatLongServiceImpl implements AppPostcodeLatLongService 
     }
 
     @Override
-    public int insertPostcodeWithLatLongList(MultipartFile file) {
-        final int BATCH_SIZE = 1000;
-        int insertedDataSize = 0;
-
-        try (InputStream inputStream = file.getInputStream();
-             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-
-            CSVParser parser = new CSVParser(reader, CSVFormat.DEFAULT);
-
-            List<CSVRecord> records = parser.getRecords();
-//            String line;
-//            while ((line = reader.readLine()) != null) {
-//                CSVRecord record = parser.parseLine(line);
-//                records.add(record);
-//
-//                if (records.size() >= BATCH_SIZE) {
-//                    processBatch(records);
-//                    records.clear();
-//                }
-//            }
-
-            // Process the remaining lines in the last batch
-            if (!records.isEmpty()) {
-                processBatch(records);
-            }
-
-
-        } catch (IOException e) {
-            return 0;
-        }
-        return 0;
-    }
-
-    private void processBatch(List<CSVRecord> records) {
-        // Process the batch of CSV records
-        // Implement your business logic here
-        for (CSVRecord record : records) {
-            // Access CSV record fields using record.get(index) or record.get("column name")
-            String field1 = record.get(0);
-            String field2 = record.get("column_name");
-
-            // Perform the necessary operations on the data
-            // ...
-
-            // Save the data to the database or perform other actions
-            // ...
-        }
-    }
-
-    @Override
-    public int testPostCodeInput(MultipartFile file) throws IOException {
+    public int insertPostcodeWithLatLongList(MultipartFile file) throws IOException {
         // execution time for 499999 data is about 15.5 mins
         long startTime = System.currentTimeMillis();
         final int BATCH_SIZE = 1000;

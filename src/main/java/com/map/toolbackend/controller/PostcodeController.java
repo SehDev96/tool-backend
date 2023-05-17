@@ -40,19 +40,7 @@ public class PostcodeController {
             String fileName = file.getOriginalFilename();
             assert fileName != null;
             if (fileName.endsWith(".csv")) {
-//                byte[] bytes = file.getBytes();
-//                String content = new String(bytes);
-//                String[] dataArray = content.split("\r\n");
-//                System.out.println("Data Array size: "+dataArray.length);
-//                List<AppPostcodeLatLong> appPostcodeLatLongList = new ArrayList<>();
-//                for (int i = 1; i < dataArray.length; i++) {
-//                    AppPostcodeLatLong appPostcodeLatLong = new AppPostcodeLatLong(dataArray[i]);
-//                    appPostcodeLatLongList.add(appPostcodeLatLong);
-//                }
-//
-//                int insertedSize = appPostcodeLatLongService.insertPostcodeWithLatLongList(appPostcodeLatLongList);
-//                insertedPostcodeSize = insertedPostcodeSize + insertedSize;
-                int insertedSize = appPostcodeLatLongService.testPostCodeInput(file);
+                int insertedSize = appPostcodeLatLongService.insertPostcodeWithLatLongList(file);
                 insertedPostcodeSize = insertedPostcodeSize + insertedSize;
 
             } else {
