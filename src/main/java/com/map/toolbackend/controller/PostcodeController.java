@@ -24,6 +24,32 @@ public class PostcodeController {
     @Autowired
     private AppPostcodeLatLongService appPostcodeLatLongService;
 
+    @GetMapping("/get/{postcode}")
+    public ResponseEntity<?> getPostcodeData(@PathVariable("postcode") String postcode) {
+        if (postcode.isBlank()) {
+            return new ResponseEntity<>(new ErrorResponseModel(
+                    HttpStatus.BAD_REQUEST.value(),
+                    "Bad Request",
+                    "Invalid postcode"
+            ), HttpStatus.BAD_REQUEST);
+        }
+        AppPostcodeLatLong appPostcodeLatLong = appPostcodeLatLongService.getPostcodeWithLatLongBytPostcode(postcode);
+
+        if (appPostcodeLatLong == null) {
+            return new ResponseEntity<>(new ErrorResponseModel(
+                    HttpStatus.NOT_FOUND.value(),
+                    "Data not found",
+                    "Postcode: " + postcode + " not found in database"
+            ), HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(new ResponseModel(
+                HttpStatus.OK.value(),
+                "Successfully retrieved data",
+                appPostcodeLatLong
+        ), HttpStatus.OK);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<?> addPostcodeLatLong(@RequestBody AppPostcodeLatLong appPostcodeLatLong) {
         if (appPostcodeLatLong.getPostcode().isBlank()) {
@@ -131,45 +157,45 @@ public class PostcodeController {
         AppPostcodeLatLong appPostcodeLatLong1 = appPostcodeLatLongService.getPostcodeWithLatLongBytPostcode(postcode1);
         AppPostcodeLatLong appPostcodeLatLong2 = appPostcodeLatLongService.getPostcodeWithLatLongBytPostcode(postcode2);
 
-        if(appPostcodeLatLong1 == null){
+        if (appPostcodeLatLong1 == null) {
             return new ResponseEntity<>(new ErrorResponseModel(
                     HttpStatus.NOT_FOUND.value(),
                     "Data not found",
-                    "Postcode: "+postcode1+" not found in database"
-            ),HttpStatus.NOT_FOUND);
+                    "Postcode: " + postcode1 + " not found in database"
+            ), HttpStatus.NOT_FOUND);
         }
 
-        if(appPostcodeLatLong2 == null){
+        if (appPostcodeLatLong2 == null) {
             return new ResponseEntity<>(new ErrorResponseModel(
                     HttpStatus.NOT_FOUND.value(),
                     "Data not found",
-                    "Postcode: "+postcode2+" not found in database"
-            ),HttpStatus.NOT_FOUND);
+                    "Postcode: " + postcode2 + " not found in database"
+            ), HttpStatus.NOT_FOUND);
         }
 
-        if(appPostcodeLatLong1.getLatitude() == null || appPostcodeLatLong1.getLongitude() == null
-        || appPostcodeLatLong2.getLatitude() == null || appPostcodeLatLong2.getLongitude() == null) {
+        if (appPostcodeLatLong1.getLatitude() == null || appPostcodeLatLong1.getLongitude() == null
+                || appPostcodeLatLong2.getLatitude() == null || appPostcodeLatLong2.getLongitude() == null) {
             return new ResponseEntity<>(new ErrorResponseModel(
                     HttpStatus.UNPROCESSABLE_ENTITY.value(),
                     "Data error",
                     "Latitude or Longitude data is missing for the given postcode"
-            ),HttpStatus.UNPROCESSABLE_ENTITY);
+            ), HttpStatus.UNPROCESSABLE_ENTITY);
         }
 
         double result = Calculator.calculateDistance(appPostcodeLatLong1.getLatitude(), appPostcodeLatLong1.getLongitude(),
                 appPostcodeLatLong2.getLatitude(), appPostcodeLatLong2.getLongitude()
         );
 
-        Map<String,Object> payloadMap = new HashMap<>();
-        payloadMap.put("location1",appPostcodeLatLong1);
-        payloadMap.put("location2",appPostcodeLatLong2);
-        payloadMap.put("distance",result);
-        payloadMap.put("unit","km");
+        Map<String, Object> payloadMap = new HashMap<>();
+        payloadMap.put("location1", appPostcodeLatLong1);
+        payloadMap.put("location2", appPostcodeLatLong2);
+        payloadMap.put("distance", result);
+        payloadMap.put("unit", "km");
 
         return new ResponseEntity<>(new ResponseModel(
                 HttpStatus.OK.value(),
                 "Calculation successful",
                 payloadMap
-        ),HttpStatus.OK);
+        ), HttpStatus.OK);
     }
 }
