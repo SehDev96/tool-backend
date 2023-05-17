@@ -54,6 +54,7 @@ public class SecurityConfiguration {
 
         http.authorizeHttpRequests((authz) -> authz
                 .requestMatchers("/app/get").hasAnyAuthority(Role.USER.name(),Role.ADMIN.name())
+                .requestMatchers("/app/postcode/**").hasAnyAuthority(Role.USER.name(),Role.ADMIN.name())
                 .requestMatchers("/app/authenticate").permitAll()
                 .requestMatchers("/app/register").permitAll()
                 .anyRequest().authenticated()

@@ -40,6 +40,7 @@ public class AuthController {
 
 
         appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
+        appUser = appUserService.insertUser(appUser);
 
         return new ResponseEntity<>(new ResponseModel(
                 HttpStatus.OK.value(),

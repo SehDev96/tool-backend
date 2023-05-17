@@ -77,7 +77,7 @@ public class AppAuthorizationFilter extends OncePerRequestFilter {
                     new ObjectMapper().writeValue(response.getOutputStream(), new ErrorResponseModel(
                             HttpStatus.UNAUTHORIZED.value(),
                             "Error Authentication User",
-                            authorizationHeader.substring("Bearer ".length())
+                            exception.getMessage()
                     ));
                 }
             } else {
