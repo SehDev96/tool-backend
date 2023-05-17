@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface AppPostcodeLatLongService {
 
+    AppPostcodeLatLong getPostcodeWithLatLongBytPostcode(String postcode);
+
     AppPostcodeLatLong insertPostcodeWithLatLong(AppPostcodeLatLong appPostcodeLatLong);
 
     int insertPostcodeWithLatLongList(List<AppPostcodeLatLong> appPostcodeLatLongList);

@@ -8,10 +8,7 @@ import com.map.toolbackend.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -24,6 +21,33 @@ public class PostcodeController {
 
     @Autowired
     private AppPostcodeLatLongService appPostcodeLatLongService;
+
+    @PostMapping("/add")
+    public ResponseEntity<?> addPostcodeLatLong(@RequestBody AppPostcodeLatLong appPostcodeLatLong){
+        if(appPostcodeLatLong.getPostcode().isBlank()){
+            return new ResponseEntity<>(new ErrorResponseModel(
+                    HttpStatus.BAD_REQUEST.value(),
+                    "Bad Request",
+                    "Postcode field is empty"
+            ),HttpStatus.BAD_REQUEST);
+        }
+
+        if(appPostcodeLatLongService.getPostcodeWithLatLongBytPostcode(appPostcodeLatLong.getPostcode()) != null){
+            return new ResponseEntity<>(new ErrorResponseModel(
+                    HttpStatus.CONFLICT.value(),
+                    "Conflict",
+                    "Postcode: "+appPostcodeLatLong.getPostcode()+" already exists"
+            ),HttpStatus.CONFLICT);
+        }
+
+        appPostcodeLatLong = appPostcodeLatLongService.insertPostcodeWithLatLong(appPostcodeLatLong);
+
+        return new ResponseEntity<>(new ResponseModel(
+                HttpStatus.OK.value(),
+                "Successfully added postcode data",
+                appPostcodeLatLong
+        ),HttpStatus.OK);
+    }
 
     @PostMapping("/uploadcsv")
     public ResponseEntity<?> uploadCsvFile(@RequestParam(value = "file1",required = false) MultipartFile file1,

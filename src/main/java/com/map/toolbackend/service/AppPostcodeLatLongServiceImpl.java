@@ -24,6 +24,11 @@ public class AppPostcodeLatLongServiceImpl implements AppPostcodeLatLongService 
     private AppPostcodeLatLongRepository appPostcodeLatLongRepository;
 
     @Override
+    public AppPostcodeLatLong getPostcodeWithLatLongBytPostcode(String postcode) {
+        return appPostcodeLatLongRepository.findByPostcode(postcode).orElse(null);
+    }
+
+    @Override
     public AppPostcodeLatLong insertPostcodeWithLatLong(AppPostcodeLatLong appPostcodeLatLong) {
         return appPostcodeLatLongRepository.save(appPostcodeLatLong);
     }
