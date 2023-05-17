@@ -131,6 +131,22 @@ public class PostcodeController {
         AppPostcodeLatLong appPostcodeLatLong1 = appPostcodeLatLongService.getPostcodeWithLatLongBytPostcode(postcode1);
         AppPostcodeLatLong appPostcodeLatLong2 = appPostcodeLatLongService.getPostcodeWithLatLongBytPostcode(postcode2);
 
+        if(appPostcodeLatLong1 == null){
+            return new ResponseEntity<>(new ErrorResponseModel(
+                    HttpStatus.NOT_FOUND.value(),
+                    "Data not found",
+                    "Postcode: "+postcode1+" not found in database"
+            ),HttpStatus.NOT_FOUND);
+        }
+
+        if(appPostcodeLatLong2 == null){
+            return new ResponseEntity<>(new ErrorResponseModel(
+                    HttpStatus.NOT_FOUND.value(),
+                    "Data not found",
+                    "Postcode: "+postcode2+" not found in database"
+            ),HttpStatus.NOT_FOUND);
+        }
+
         if(appPostcodeLatLong1.getLatitude() == null || appPostcodeLatLong1.getLongitude() == null
         || appPostcodeLatLong2.getLatitude() == null || appPostcodeLatLong2.getLongitude() == null) {
             return new ResponseEntity<>(new ErrorResponseModel(
@@ -146,7 +162,7 @@ public class PostcodeController {
 
         Map<String,Object> payloadMap = new HashMap<>();
         payloadMap.put("location1",appPostcodeLatLong1);
-        payloadMap.put("location2",appPostcodeLatLong1);
+        payloadMap.put("location2",appPostcodeLatLong2);
         payloadMap.put("distance",result);
         payloadMap.put("unit","km");
 
