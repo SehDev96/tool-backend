@@ -48,14 +48,4 @@ public class AuthController {
                 appUser
         ),HttpStatus.OK);
     }
-
-    @GetMapping("/get")
-    public ResponseEntity<?> getTest(){
-        System.out.println("TESTING");
-        return new ResponseEntity<>(new ResponseModel(
-                HttpStatus.OK.value(),
-                "Successfully created user",
-                "SUCCESS"
-        ),HttpStatus.OK);
-    }
 }

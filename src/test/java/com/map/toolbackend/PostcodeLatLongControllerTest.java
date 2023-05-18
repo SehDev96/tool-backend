@@ -1,15 +1,12 @@
 package com.map.toolbackend;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.map.toolbackend.service.AppPostcodeLatLongService;
 import com.map.toolbackend.service.AppUserService;
-import org.junit.Before;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.Http2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.web.WebAppConfiguration;

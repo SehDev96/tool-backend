@@ -2,7 +2,6 @@ package com.map.toolbackend;
 
 import com.map.toolbackend.constants.Role;
 import com.map.toolbackend.service.AppUserService;
-import jakarta.servlet.Filter;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
