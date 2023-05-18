@@ -7,6 +7,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class AppPostcodeLatLongServiceImpl implements AppPostcodeLatLongService {
 
 
@@ -90,5 +92,10 @@ public class AppPostcodeLatLongServiceImpl implements AppPostcodeLatLongService 
 
     private void processLine(List<AppPostcodeLatLong> appPostcodeLatLongList){
         appPostcodeLatLongRepository.saveAll(appPostcodeLatLongList);
+    }
+
+    @Override
+    public void removePostCodeLatLongByPostcode(String postcode) {
+        appPostcodeLatLongRepository.deleteByPostcode(postcode);
     }
 }

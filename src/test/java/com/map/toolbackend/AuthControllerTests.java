@@ -59,8 +59,8 @@ public class AuthControllerTests extends AbstractTest{
     @Test
     void testUserLogin() throws Exception {
         Map<String,String> userMap = new HashMap<>();
-        userMap.put("username","testuser");
-        userMap.put("password","testpassword");
+        userMap.put("username",USERNAME);
+        userMap.put("password",PASSWORD);
         String inputJson = mapToJson(userMap);
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/app/authenticate")
                 .content(inputJson)).andReturn();

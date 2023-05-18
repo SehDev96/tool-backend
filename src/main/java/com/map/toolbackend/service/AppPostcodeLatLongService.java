@@ -15,4 +15,6 @@ public interface AppPostcodeLatLongService {
     int insertPostcodeWithLatLongList(List<AppPostcodeLatLong> appPostcodeLatLongList);
 
     int insertPostcodeWithLatLongList(MultipartFile file) throws IOException;
+
+    void removePostCodeLatLongByPostcode(String postcode);
 }

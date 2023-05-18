@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.map.toolbackend.constants.Role;
 import jakarta.servlet.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,6 +14,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @SpringBootTest
 @WebAppConfiguration
@@ -40,7 +43,7 @@ public abstract class AbstractTest {
     // Attribute name very important
     protected Filter springSecurityFilterChain;
 
-    protected void setUp() {
+    protected void setUp() throws Exception {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
@@ -53,5 +56,20 @@ public abstract class AbstractTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(json, clazz);
+    }
+
+    protected Map<String,String> getUserMap(){
+        Map<String,String> userMap = new HashMap<>();
+        userMap.put("username",USERNAME);
+        userMap.put("password",PASSWORD);
+        return  userMap;
+    }
+
+    protected Map<String,String> getUserMapWithRole(){
+        Map<String,String> userMap = new HashMap<>();
+        userMap.put("username",USERNAME);
+        userMap.put("password",PASSWORD);
+        userMap.put("role", Role.USER.name());
+        return  userMap;
     }
 }
