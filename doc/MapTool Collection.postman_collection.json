@@ -1,0 +1,288 @@
+{
+	"info": {
+		"_postman_id": "683e3f5e-86e2-4612-8888-c29b7b04812d",
+		"name": "MapTool Collection",
+		"description": "This is a collection of API to use this Map Tool.\n\nThis API response are always in the following format:\n\n``` json\n{\n    \"success\": ,\n    \"response_code\": ,\n    \"message\": \n    \"timestamp\": ,\n    \"payload\": {}\n}\n```",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23049696"
+	},
+	"item": [
+		{
+			"name": "Authenticate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"username\",\n    \"password\":\"username\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/app/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"app",
+						"authenticate"
+					]
+				},
+				"description": "To authenticate user. It will return access_token which will be neede as Bearer Token for other authenticated request."
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"username\",\n    \"password\": \"username\",\n    \"role\": \"USER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/app/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"app",
+						"register"
+					]
+				},
+				"description": "To register user. Role field is compulsory when sending this request."
+			},
+			"response": []
+		},
+		{
+			"name": "Upload Postcode CSV",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsInJvbGVzIjpbIlVTRVIiXSwiaXNzIjoiUHJvamVjdEFwcCIsImV4cCI6MTY4NDMxMTE1NX0.sE_1gs6RBdBDl4H6Wql-jAdsci86QB_CjEyMczlh6xI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file1",
+							"type": "file",
+							"src": "/Users/sehran/Downloads/file/file0.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/app/postcode/uploadcsv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"app",
+						"postcode",
+						"uploadcsv"
+					]
+				},
+				"description": "This endpoint is to upload list of postcode data. There is a limitation of max file size upload. The max size is 40MB. The approximated time taken to upload 499,999 data was \\~15.5 minutes."
+			},
+			"response": []
+		},
+		{
+			"name": "Insert Postcode Data",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsInJvbGVzIjpbIlVTRVIiXSwiaXNzIjoiUHJvamVjdEFwcCIsImV4cCI6MTY4NDMxNjE3Mn0.ZkUGERZLPWdKyDimq6328c8FmOMMXCXqbGj-P7kyfmc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"postcode\": \"ABC 123\",\n    \"latitude\": 57.1374680,\n    \"longitude\": -2.1124550\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/app/postcode/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"app",
+						"postcode",
+						"add"
+					]
+				},
+				"description": "To add one postcode data."
+			},
+			"response": []
+		},
+		{
+			"name": "Update Postcode Data",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsInJvbGVzIjpbIlVTRVIiXSwiaXNzIjoiUHJvamVjdEFwcCIsImV4cCI6MTY4NDMyMTg3OX0.fsyfAc3OutcCYKx8Kd_DzO9U5biMJARQzE8s-2Kof9c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"latitude\":50.792362,\n    \"longitude\": -1.101501\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/app/postcode/update?postcode=PO1%202HG",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"app",
+						"postcode",
+						"update"
+					],
+					"query": [
+						{
+							"key": "postcode",
+							"value": "PO1%202HG"
+						}
+					]
+				},
+				"description": "> `To update latitude or longitude of a particular postcode. If the postcode contains space, it will should be replaced with percent-encoding`"
+			},
+			"response": []
+		},
+		{
+			"name": "Distance Calculator",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsInJvbGVzIjpbIlVTRVIiXSwiaXNzIjoiUHJvamVjdEFwcCIsImV4cCI6MTY4NDMyNzkxOH0.kv6PgWV3L-ezAHwckDHufBY51imewBcO9JqJPwFvsK4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"success\": true,\n    \"response_code\": 200,\n    \"message\": \"Calculation successful\",\n    \"timestamp\": \"2023-05-18 13:39:26.035\",\n    \"payload\": {\n        \"unit\": \"km\",\n        \"distance\": 5648.842407350263,\n        \"location1\": {\n            \"id\": 599752,\n            \"postcode\": \"FIRST\",\n            \"latitude\": 0.0,\n            \"longitude\": 0.0\n        },\n        \"location2\": {\n            \"id\": 599753,\n            \"postcode\": \"THIRD\",\n            \"latitude\": 50.792629,\n            \"longitude\": -1.101141\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/app/postcode/distance?postcode1=PO1%202HE&postcode2=PO1%202EY",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"app",
+						"postcode",
+						"distance"
+					],
+					"query": [
+						{
+							"key": "postcode1",
+							"value": "PO1%202HE"
+						},
+						{
+							"key": "postcode2",
+							"value": "PO1%202EY"
+						}
+					]
+				},
+				"description": "Calculates the distance between two postcodes."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Postcode Data",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsInJvbGVzIjpbIlVTRVIiXSwiaXNzIjoiUHJvamVjdEFwcCIsImV4cCI6MTY4NDMyNzE0N30.E342lCz9T_Pza4oftsDjrI_qZIPSoemyfSl7hytwNJc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/app/postcode/get/PO1%202HE",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"app",
+						"postcode",
+						"get",
+						"PO1%202HE"
+					]
+				},
+				"description": "To retrieved data of one postcode."
+			},
+			"response": []
+		}
+	]
+}
