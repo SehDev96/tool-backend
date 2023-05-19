@@ -88,6 +88,9 @@ To register a user. The `role` field is compulsory when sending this request.
 
 This endpoint is used to upload a list of postcode data. There is a limitation on the maximum file size for upload, which is 40MB. The approximate time taken to upload 499,999 data was ~15.5 minutes. The payload field in the response shows the number of data that has been uploaded. 
 
+>tool-backend/data/sample_data.csv contains sample data which can be used to test this endpoint.
+
+
 - Method: `POST`
 - URL: `http://localhost:8080/app/postcode/uploadcsv`
 - Authentication: Bearer Token
