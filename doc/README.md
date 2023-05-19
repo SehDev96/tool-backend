@@ -4,7 +4,7 @@
 
 This is a collection of API to use this Map Tool.
 
-This API response is always in the following format:
+API Response format:
 
 ```json
 {
@@ -33,6 +33,20 @@ To authenticate user. It will return `access_token` which will be needed as Bear
     "password": "username"
 }
 ```
+
+#### Response Body
+
+```json
+{
+    "success": true,
+    "response_code": 200,
+    "message": "User Authentication Successful!",
+    "timestamp": "2023-05-19 01:26:12.735",
+    "payload": {
+        "access_token": <access_token>
+    }
+}
+```
 ----
 
 ### Register
@@ -52,10 +66,27 @@ To register a user. The `role` field is compulsory when sending this request.
     "role": "USER"
 }
 ```
+
+#### Response Body
+
+```json
+{
+    "success": true,
+    "response_code": 200,
+    "message": "Successfully created user",
+    "timestamp": "2023-05-19 01:23:08.06",
+    "payload": {
+        "id": "6aad6166-8cc7-4397-8d3a-537642afc122",
+        "username": "username1",
+        "role": "USER"
+    }
+}
+```
+
 ----
 ### Upload Postcode CSV
 
-This endpoint is used to upload a list of postcode data. There is a limitation on the maximum file size for upload, which is 40MB. The approximate time taken to upload 499,999 data was ~15.5 minutes.
+This endpoint is used to upload a list of postcode data. There is a limitation on the maximum file size for upload, which is 40MB. The approximate time taken to upload 499,999 data was ~15.5 minutes. The payload field in the response shows the number of data that has been uploaded. 
 
 - Method: `POST`
 - URL: `http://localhost:8080/app/postcode/uploadcsv`
@@ -73,6 +104,19 @@ Include the following authentication token in the request headers:
 The request body should be in `formdata` format:
 
 - `file1`: CSV file to upload (max file size: 40MB)
+
+#### Response Body
+
+```json
+{
+    "success": true,
+    "response_code": 200,
+    "message": "Successfully uploaded postcodes",
+    "timestamp": "2023-05-19 01:31:53.844",
+    "payload": 99
+}
+```
+
 
 ---
 
@@ -96,11 +140,29 @@ The request body should be in raw JSON format:
 
 ```json
 {
-    "postcode": "ABC 123",
-    "latitude": 57.1374680,
-    "longitude": -2.1124550
+    "postcode": "ABC 12345",
+    "latitude": 58.1374680,
+    "longitude": -1.1124550
 }
 ```
+
+#### Response Body
+
+```json
+{
+    "success": true,
+    "response_code": 200,
+    "message": "Successfully added postcode data",
+    "timestamp": "2023-05-19 01:34:12.005",
+    "payload": {
+        "id": 151,
+        "postcode": "ABC 12345",
+        "latitude": 58.137468,
+        "longitude": -1.112455
+    }
+}
+```
+
 
 ---
 
@@ -119,7 +181,7 @@ Include the following Bearer Token in the request headers:
 - Token: `<token>`
 
 #### Query Parameter
-- postcode: `PO1%202HG`
+- postcode: `ABC%2012345`
 
 #### Request Body
 
@@ -127,10 +189,28 @@ The request body should be in raw JSON format:
 
 ```json
 {
-    "latitude": 50.792362,
-    "longitude": -1.101501
+    "latitude":57.777777,
+    "longitude": -2.22222
 }
 ```
+
+#### Response Body
+
+```json
+{
+    "success": true,
+    "response_code": 200,
+    "message": "Successfully updated postcode data",
+    "timestamp": "2023-05-19 01:36:12.914",
+    "payload": {
+        "id": 151,
+        "postcode": "ABC 12345",
+        "latitude": 57.777777,
+        "longitude": -2.22222
+    }
+}
+```
+
 ---
 
 ### Get Postcode Data
@@ -146,6 +226,23 @@ This endpoint is used to retrieve data for a specific postcode. If the postcode 
 Include the following Bearer Token in the request headers:
 
 - Token: `<token>`
+
+#### Response Body
+
+```json
+{
+    "success": true,
+    "response_code": 200,
+    "message": "Successfully retrieved data",
+    "timestamp": "2023-05-19 01:37:34.077",
+    "payload": {
+        "id": 151,
+        "postcode": "ABC 12345",
+        "latitude": 57.777777,
+        "longitude": -2.22222
+    }
+}
+```
 
 ---
 ### Distance Calculator
@@ -164,7 +261,34 @@ Include the following Bearer Token in the request headers:
 
 #### Query Parameters
 
-- postcode1: `<postcode1`.
+- postcode1: `<postcode1>`.
 - postcode2: `<postcode2>`.
+
+#### Response Body
+
+```json
+{
+    "success": true,
+    "response_code": 200,
+    "message": "Calculation successful",
+    "timestamp": "2023-05-19 01:39:07.297",
+    "payload": {
+        "unit": "km",
+        "distance": 2.3328491546001495,
+        "location1": {
+            "id": 52,
+            "postcode": "AB10 1XG",
+            "latitude": 57.144156,
+            "longitude": -2.114864
+        },
+        "location2": {
+            "id": 54,
+            "postcode": "AB10 7JB",
+            "latitude": 57.124274,
+            "longitude": -2.127206
+        }
+    }
+}
+```
 
 
